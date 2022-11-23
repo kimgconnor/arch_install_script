@@ -1,14 +1,11 @@
 #/bash/sh
 
-echo "please uncomment your locale(likely to be en_US.UTF-8 UTF-8)"
-sleep 3
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 read -p "what would you like the system hostname to be: " hostname
 echo $hostname >> /etc/hostname
 echo "please set the root password"
-sleep 1
 passwd
 
 adduser(){
