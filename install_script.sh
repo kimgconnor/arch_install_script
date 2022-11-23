@@ -40,7 +40,7 @@ mount --mkdir $homePartition /mnt/home
 mount --mkdir $bootPartition /mnt/boot
 
 reflector
-pacstrap -K /mnt base linux linux-firmware nano
+pacstrap -K /mnt base linux linux-firmware nano git
 genfstab -U /mnt >> /mnt/etc/fstab
 cp ./install_script_chroot.sh /mnt
 cp ./install_script_apps.sh /mnt
