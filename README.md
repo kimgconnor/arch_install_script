@@ -2,7 +2,7 @@
 a basic arch install script
 
 # Usage
-install git then clone the repo and make install_script.sh executable and run it
+on an arch iso install git then clone the repo and make install_script.sh executable and run it
 ```
 pacman -Sy git
 git clone https://github.com/kimgconnor/arch_install_script/
