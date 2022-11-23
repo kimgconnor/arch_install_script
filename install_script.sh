@@ -42,8 +42,10 @@ mount --mkdir $bootPartition /mnt/boot
 reflector
 pacstrap -K /mnt base linux linux-firmware nano
 genfstab -U /mnt >> /mnt/etc/fstab
-#cp ./install_script_chroot.sh /mnt
+cp ./install_script_chroot.sh /mnt
+cp ./install_script_apps.sh /mnt
 chmod u+x ./install_script_chroot.sh
+chmod u+x ./install_script_apps.sh
 arch-chroot /mnt ./install_script_chroot.sh
 rm /mnt/install_script_chroot.sh
 echo "arch install complete"
