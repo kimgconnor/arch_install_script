@@ -1,5 +1,5 @@
 # arch_install_script
-a basic arch install script
+a basic arch install script for use on an arch iso
 
 # Usage
 on an arch iso install git then clone the repo and make install_script.sh executable and run it
