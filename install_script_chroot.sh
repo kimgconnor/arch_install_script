@@ -12,7 +12,7 @@ sleep 1
 passwd
 
 adduser(){
-  useradd $1 -G $2
+  useradd $1 -m -G $2
   passwd $1
   read -n1 -p "Add Another User[N,y]: " anotherUser
   case $anotherUser in
