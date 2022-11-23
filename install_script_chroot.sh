@@ -26,11 +26,10 @@ adduser(){
 }
 
 read -p "Name of New User(with sudo access): " userName
-read -p "Groups for new user(wheel,audio,video,etc): " userGroups
-adduser $userName $userGroups;;
+read -p "Groups for new user with sudo access(audio,video,etc): " userGroups
+adduser $userName $userGroups,wheel
 
-#copy basic config to allow wheel group to sudo
-mv ./sudoers /etc/
+#change file permissions for sudo config
 chown -c root:root /etc/sudoers
 chmod -c 0440 /etc/sudoers
 

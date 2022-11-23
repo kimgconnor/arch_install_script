@@ -44,13 +44,14 @@ pacstrap -K /mnt base linux linux-firmware nano
 genfstab -U /mnt >> /mnt/etc/fstab
 cp ./install_script_chroot.sh /mnt
 cp ./install_script_apps.sh /mnt
-chmod u+x ./install_script_chroot.sh
-chmod u+x ./install_script_apps.sh
-arch-chroot /mnt ./install_script_chroot.sh
-rm /mnt/install_script_chroot.sh
+cp ./sudoers /mnt/etc
+chmod u+x /mnt/install_script_chroot.sh
+chmod u+x /mnt/install_script_apps.sh
+arch-chroot /mnt /mnt/install_script_chroot.sh
 echo "arch install complete"
 read -n1 -p "would you like to delete the install scripts[n, Y]" removeScripts
 case $removeScripts in
   n|N) exit ;;
   *) rm install_script.sh
     rm install_script_chroot.sh
+    rm /mnt/install_script_chroot.sh
