@@ -31,8 +31,8 @@ case $swapEnabled in
     mkswap $swapPartition ;;
 esac
 read -p "partitionType for / and /home(btrfs, ext4, xfs, etc): " partitionType
-mkfs.$partitionType homePartition
-mkfs.$partitionType rootPartition
+mkfs.$partitionType $homePartition
+mkfs.$partitionType $rootPartition
 read -n1 -p "do you need to format the efi partition(only do this if it isnt being used by another os already)[y,n]" formatEFI
 formatBootPartition $formatEFI $bootPartition
 mount --mkdir rootPartition /mnt
