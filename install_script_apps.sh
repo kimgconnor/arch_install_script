@@ -6,7 +6,7 @@ installParuFunction() {
   sudo pacman -Syyu --needed base-devel
   git clone https://aur.archlinux.org/paru.git
   cd paru
-  makepkg -si
+  sudo makepkg -si
   echo "Installed Paru"
   cd
   read -n1 -p "Remove Paru Build Files[Y, n]: " deleteParuDirectory
