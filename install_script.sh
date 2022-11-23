@@ -47,7 +47,7 @@ cp ./install_script_apps.sh /mnt
 cp ./sudoers /mnt/etc
 chmod u+x /mnt/install_script_chroot.sh
 chmod u+x /mnt/install_script_apps.sh
-arch-chroot /mnt /mnt/install_script_chroot.sh
+arch-chroot /mnt ./install_script_chroot.sh
 echo "arch install complete"
 read -n1 -p "would you like to delete the install scripts[n, Y]" removeScripts
 case $removeScripts in
