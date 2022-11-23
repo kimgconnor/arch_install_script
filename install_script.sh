@@ -42,9 +42,9 @@ mount --mkdir $bootPartition /mnt/boot
 reflector
 pacstrap -K /mnt base linux linux-firmware nano
 genfstab -U /mnt >> /mnt/etc/fstab
-cp ./install_script_chroot.sh /mnt
-chmod u+x /mnt/install_script_chroot.sh
-arch-chroot /mnt -c "./install_script_chroot.sh"
+#cp ./install_script_chroot.sh /mnt
+chmod u+x ./install_script_chroot.sh
+arch-chroot /mnt ./install_script_chroot.sh
 rm /mnt/install_script_chroot.sh
 echo "arch install complete"
 read -n1 -p "would you like to delete the install scripts[n, Y]" removeScripts
