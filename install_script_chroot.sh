@@ -10,7 +10,6 @@ echo $hostname >> /etc/hostname
 echo "please set the root password"
 sleep 1
 passwd
-bootctl install
 
 adduser(){
   useradd $1 -G $2
@@ -32,6 +31,10 @@ adduser $userName $userGroups,wheel
 #change file permissions for sudo config
 chown -c root:root /etc/sudoers
 chmod -c 0440 /etc/sudoers
+
+#install bootloader
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=$hostname
 
 #installApps
 echo "must swap to user to install packages from the aur"
