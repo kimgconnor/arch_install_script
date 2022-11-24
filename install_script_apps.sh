@@ -22,7 +22,7 @@ installParuFunction() {
 
 #installApps functions
 installAppsFunction() {
-  read -n1 -p "install $1[Y, n]:" installApp
+  read -n1 -p "install $1[y, N]:" installApp
   echo ""
   case $installApp in
     y|Y) paru -S $1
@@ -30,6 +30,11 @@ installAppsFunction() {
     n|N) echo "$1 skipped" ;;
     *) echo "$1 skipped" ;;
   esac
+}
+
+installDeamonFunction() {
+  installAppsFunction $1
+  sudo systemctl enable $1
 }
 
 installOtherAppsFunction() {
@@ -51,37 +56,134 @@ case $installParu in
   *) installParuFunction ;;
 esac
 
-installAppsFunction 'steam' ;
-installAppsFunction 'discord' ;
-installAppsFunction 'flatpak' ;
-installAppsFunction 'snapd' ;
-installAppsFunction 'firefox' ;
-installAppsFunction 'firedragon' ;
-installAppsFunction 'alacritty' ;
-installAppsFunction 'xterm' ;
-installAppsFunction 'kitty' ;
-installAppsFunction 'picom' ;
-installAppsFunction 'kate' ;
-installAppsFunction 'atom' ;
-installAppsFunction 'emacs' ;
+echo "now installing apps"
+echo "there will be a 3 sec sleep after saying the next catagory of apps"
+echo "this is to allow you to skip past the rest of the apps if you have already installed the ones you want."
+sleep 3
+
+#drivers and other important setup
+clear
+echo "drivers and other important setup"
+sleep 3
+installAppsFunction 'xorg' ;
+installAppsFunction 'wayland' ;
+installAppsFunction 'pipewire' ;
+installAppsFunction 'pulseaudio' ;
+installAppsFunction 'vulkan-icd-loader' ;
+installAppsFunction 'lib32-vulkan-icd-loader' ;
+installAppsFunction 'mesa' ;
+installAppsFunction 'vulkan-intel' ;
+installAppsFunction 'lib32-vulkan-intel' ;
+installAppsFunction 'vulkan-radeon' ;
+installAppsFunction 'lib32-vulkan-radeon' ;
+installAppsFunction 'nvidia' ;
+installAppsFunction 'nvidia-utils' ;
+installAppsFunction 'lib32-nvidia-utils' ;
+
+#loginmanagers
+clear
+echo "display managers(please only install one)"
+sleep 3
+installDeamonFunction 'gdm' ;
+installDeamonFunction 'lightdm' ;
+installDeamonFunction 'sddm' ;
+
+#desktop enviornments
+clear
+echo "desktop enviornments"
+sleep 3
+installAppsFunction 'budgie-desktop' ;
 installAppsFunction 'qtile' ;
 installAppsFunction 'xmonad' ;
 installAppsFunction 'plasma' ;
 installAppsFunction 'gnome' ;
-installAppsFunction 'xfce4' ;
 installAppsFunction 'xfce4-devel' ;
-installAppsFunction 'mesa' ;
-installAppsFunction 'nvidia' ;
-installAppsFunction 'corectrl' ;
-installAppsFunction 'gwe' ;
-installAppsFunction 'multimc';
-installAppsFunction 'prismlauncher' ;
-installAppsFunction 'minecraft-launcher' ;
+installAppsFunction 'xfce4' ;
+installAppsFunction 'cutefish' ;
+installAppsFunction 'lxde-gtk3'
+installAppsFunction 'lxqt'
+installAppsFunction 'mate'
+installAppsFunction 'xfce4'
+
+#package format tools/installers
+clear
+echo "package format tools/installers"
+sleep 3
+installAppsFunction 'flatpak' ;
+installAppsFunction 'snapd' ;
+installAppsFunction 'appimagelauncher' ;
+
+#browsers and terminals
+clear
+echo "browsers"
+sleep 3
+installAppsFunction 'firefox' ;
+installAppsFunction 'firedragon' ;
+installAppsFunction 'librewolf' ;
+installAppsFunction 'torbrowser-launcher' ;
+installAppsFunction 'chromium' ;
+installAppsFunction 'brave-bin' ;
+installAppsFunction 'ungoogled-chromium' ;
+installAppsFunction 'google-chrome' ;
+installAppsFunction 'microsoft-edge-stable-bin' ;
+installAppsFunction 'opera' ;
+installAppsFunction 'vivaldi' ;
+
+#terminals
+clear
+echo 'terminals'
+sleep 3
+installAppsFunction 'alacritty' ;
+installAppsFunction 'xterm' ;
+installAppsFunction 'kitty' ;
+installAppsFunction 'deepin-terminal' ;
+installAppsFunction 'rxvt-unicode' ;
+installAppsFunction 'yakuake' ;
+installAppsFunction 'konsole' ;
+
+#file managers and file management tools
+clear
+echo "file managers and file management tools"
+sleep 3
 installAppsFunction 'dolphin' ;
 installAppsFunction 'thunar' ;
 installAppsFunction 'thunar-devel' ;
 installAppsFunction 'nemo'
 installAppsFunction 'p7zip'
-installAppsFunction '7z' ;
+
+#text editors
+clear
+echo "text editors"
+sleep 3
+installAppsFunction 'kate' ;
+installAppsFunction 'atom' ;
+installAppsFunction 'emacs' ;
+
+#other important programs
+clear
+echo "other important programs"
+sleep 3
+installAppsFunction 'picom' ;
+installAppsFunction 'corectrl' ;
+installAppsFunction 'gwe' ;
+
+#gaming
+clear
+echo "gaming"
+sleep 3
+installAppsFunction 'discord' ;
+installAppsFunction 'steam' ;
+installAppsFunction 'proton-ge-custom' ;
+installAppsFunction 'wine' ;
+installAppsFunction 'wine-mono' ;
+installAppsFunction 'lutris' ;
+installAppsFunction 'minecraft-launcher' ;
+installAppsFunction 'multimc';
+installAppsFunction 'prismlauncher' ;
+
+#other
+clear
+echo "other"
+sleep 3
 installOtherAppsFunction
 exit
