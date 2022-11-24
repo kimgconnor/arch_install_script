@@ -32,6 +32,7 @@ chmod -c 0440 /etc/sudoers
 #install bootloader
 pacman -S grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=$hostname
+grub-mkconfig -o /boot/grub/grub.cfg
 
 #installApps
 echo "must swap to user to install packages from the aur"
