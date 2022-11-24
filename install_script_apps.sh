@@ -32,6 +32,9 @@ installAppsFunction() {
   esac
 }
 
+installAppsNoConfirmFunction() {
+  paru -S $1 --noconfirm
+}
 installDeamonFunction() {
   installAppsFunction $1
   sudo systemctl enable $1
@@ -44,6 +47,23 @@ installOtherAppsFunction() {
         *) installAppsFunction $installOtherApp
             installOtherAppsFunction ;;
     esac
+}
+
+installAppGroupFunction() {
+  read -n1 -p "installGroup[y, N]: $1" installGroup
+  case $installGroup in
+    y|Y) for app in $#-1
+      do
+        read -n1 -p "install all with no confirmation(may break stuff use at your own risk)[N, y]: " blindinstall
+        case $blindinstall in
+          y|Y) installAppsNoConfirmFunction $(app-1) ;;
+          n|N) installAppsFunction $(app-1) ;;
+          *) installAppsFunction $(app-1) ;;
+        esac
+      done ;;
+    n|N) echo "$1 skipped" ;;
+    *) echo "$1 skipped" ;;
+  esac
 }
 
 
@@ -69,16 +89,9 @@ installAppsFunction 'xorg' ;
 installAppsFunction 'wayland' ;
 installAppsFunction 'pipewire' ;
 installAppsFunction 'pulseaudio' ;
-installAppsFunction 'vulkan-icd-loader' ;
-installAppsFunction 'lib32-vulkan-icd-loader' ;
-installAppsFunction 'mesa' ;
-installAppsFunction 'vulkan-intel' ;
-installAppsFunction 'lib32-vulkan-intel' ;
-installAppsFunction 'vulkan-radeon' ;
-installAppsFunction 'lib32-vulkan-radeon' ;
-installAppsFunction 'nvidia' ;
-installAppsFunction 'nvidia-utils' ;
-installAppsFunction 'lib32-nvidia-utils' ;
+installAppGroupFunction 'amd drivers' 'vulkan-icd-loader' 'lib32-vulkan-icd-loader' 'mesa' 'vulkan-radeon' 'lib32-vulkan-radeon' ;
+installAppGroupFunction 'intel drivers' 'mesa' 'vulkan-intel' 'lib32-vulkan-intel' 'vulkan-icd-loader' 'lib32-vulkan-icd-loader';
+installAppGroupFunction 'nvidia' 'nvidia' 'nvidia-utils' 'lib32-nvidia-utils' 'vulkan-icd-loader' 'lib32-vulkan-icd-loader' ;
 
 #loginmanagers
 clear
@@ -96,14 +109,14 @@ installAppsFunction 'budgie-desktop' ;
 installAppsFunction 'qtile' ;
 installAppsFunction 'xmonad' ;
 installAppsFunction 'plasma' ;
-installAppsFunction 'gnome' ;
+installAppGroupFunction 'gnome-desktop' 'gnome' 'gnome-tweak-tool' 'gnome-shell-extensions';
 installAppsFunction 'xfce4-devel' ;
 installAppsFunction 'xfce4' ;
 installAppsFunction 'cutefish' ;
-installAppsFunction 'lxde-gtk3'
-installAppsFunction 'lxqt'
-installAppsFunction 'mate'
-installAppsFunction 'xfce4'
+installAppsFunction 'lxde-gtk3';
+installAppsFunction 'lxqt' ;
+installAppsFunction 'mate' ;
+installAppsFunction 'xfce4' ;
 
 #package format tools/installers
 clear
@@ -148,8 +161,8 @@ sleep 3
 installAppsFunction 'dolphin' ;
 installAppsFunction 'thunar' ;
 installAppsFunction 'thunar-devel' ;
-installAppsFunction 'nemo'
-installAppsFunction 'p7zip'
+installAppsFunction 'nemo' ;
+installAppsFunction 'p7zip' ;
 
 #text editors
 clear
