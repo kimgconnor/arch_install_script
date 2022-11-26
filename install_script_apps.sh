@@ -79,6 +79,7 @@ esac
 
 paru -S networkmanager
 sudo systemctl enable NetworkManager
+
 echo "now installing apps"
 echo "there will be a 3 sec sleep after saying the next catagory of apps"
 echo "this is to allow you to skip past the rest of the apps if you have already installed the ones you want."
@@ -90,7 +91,7 @@ echo "drivers and other important setup"
 sleep 3
 installAppsFunction 'xorg' ;
 installAppsFunction 'wayland' ;
-installAppsFunction 'pipewire' ;
+installAppGroupFunction 'pipewire' 'pipewire' 'pipewire-pulse';
 installAppsFunction 'pulseaudio' ;
 installAppGroupFunction 'amd drivers' 'vulkan-icd-loader' 'lib32-vulkan-icd-loader' 'mesa' 'vulkan-radeon' 'lib32-vulkan-radeon' ;
 installAppGroupFunction 'intel drivers' 'mesa' 'vulkan-intel' 'lib32-vulkan-intel' 'vulkan-icd-loader' 'lib32-vulkan-icd-loader';
