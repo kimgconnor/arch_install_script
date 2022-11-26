@@ -55,10 +55,11 @@ installAppGroupFunction() {
     y|Y) for app in $#-1
       do
         read -n1 -p "install all with no confirmation(may break stuff use at your own risk)[N, y]: " blindinstall
+        appNumber = app+1
         case $blindinstall in
-          y|Y) installAppsNoConfirmFunction $(app-1) ;;
-          n|N) installAppsFunction $(app-1) ;;
-          *) installAppsFunction $(app-1) ;;
+          y|Y) installAppsNoConfirmFunction $appNumber ;;
+          n|N) installAppsFunction $appNumber ;;
+          *) installAppsFunction $appNumber ;;
         esac
       done ;;
     n|N) echo "$1 skipped" ;;
@@ -76,6 +77,8 @@ case $installParu in
   *) installParuFunction ;;
 esac
 
+paru -S networkmanager
+sudo systemctl enable NetworkManager
 echo "now installing apps"
 echo "there will be a 3 sec sleep after saying the next catagory of apps"
 echo "this is to allow you to skip past the rest of the apps if you have already installed the ones you want."
