@@ -33,9 +33,9 @@ esac
 read -n1 -p "would you like to have the /home partition reformated(do this unless you are using a /home partition from a previous install[n. Y]: " formathome
 read -p "partitionType for / and /home if reformating it is enabled(btrfs, ext4, xfs, etc): " partitionType
 case $formathome in
-  y|Y) mkfs.$partitionType $homePartition
-  n|N) echo "home partition not formated"
-  *) mkfs.$partitionType $homePartition
+  y|Y) mkfs.$partitionType $homePartition ;;
+  n|N) echo "home partition not formated" ;;
+  *) mkfs.$partitionType $homePartition ;;
 esac
 mkfs.$partitionType $rootPartition
 read -n1 -p "do you need to format the efi partition(only do this if it isnt being used by another os already)[y,n]" formatEFI
